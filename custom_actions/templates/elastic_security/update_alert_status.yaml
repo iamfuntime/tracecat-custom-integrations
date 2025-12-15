@@ -14,7 +14,7 @@ definition:
 
   expects:
     alert_ids:
-      type: list[str]
+      type: list[any]
       description: List of alert IDs to update
 
     status:
