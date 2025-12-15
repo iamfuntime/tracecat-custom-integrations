@@ -5,7 +5,7 @@ definition:
   display_group: Elastic Security
   namespace: tools.elastic_security
   name: update_signal_status
-  doc_url: https://www.elastic.co/guide/en/security/current/detections-api-update-status.html
+  doc_url: https://www.elastic.co/docs/api/doc/kibana/operation/operation-setalertsstatus
   secrets:
     - name: elastic_security
       keys:
