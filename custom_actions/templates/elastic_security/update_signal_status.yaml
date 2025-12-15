@@ -1,42 +1,35 @@
 type: action
 definition:
-  title: Update Elastic Security Alert Status
+  title: Update detection alerts
   description: Update the workflow status of Elastic Security detection alerts
   display_group: Elastic Security
   namespace: tools.elastic_security
-  name: update_alert_status
+  name: update_signal_status
   doc_url: https://www.elastic.co/guide/en/security/current/detections-api-update-status.html
-
   secrets:
     - name: elastic_security
       keys:
         - ELASTIC_API_KEY
-
   expects:
     alert_ids:
       type: list[any]
       description: List of alert IDs to update
-
     status:
       type: str
       description: New workflow status (open, acknowledged, closed, in-progress)
       default: acknowledged
-
     base_url:
       type: str | None
       description: Kibana endpoint URL (e.g. https://localhost:5601)
       default: null
-
-    comment:
-      type: str | None
-      description: Optional comment to add when updating status
-      default: null
-
     verify_ssl:
       type: bool
       description: Whether to verify SSL certificates
       default: true
-
+    reason:
+      type: str | None
+      description: Reason for updating status (false_positive, duplicate, true_positive, benign_positive, automated_closure, other)
+      default: null
   steps:
     - ref: update_status
       action: core.http_request
@@ -51,5 +44,4 @@ definition:
           signal_ids: ${{ inputs.alert_ids }}
           status: ${{ inputs.status }}
         verify_ssl: ${{ inputs.verify_ssl }}
-
   returns: ${{ steps.update_status.result }}
